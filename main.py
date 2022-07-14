@@ -1,58 +1,12 @@
-from random import sample
-
-phrase = "Trust in the Lord with all your heart and lean not on your own understanding, in all your ways submit to him"
+import cipher_functions as ciph_function
+phrase = "Trust"
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-            "v", "w", "x", "y", "z"]
+            "v", "w", "x", "y", "z", "*", "/", ",", "+", "&", "^"]
 
-def create_cipher_key_list(alphabet):
-    cipher_key_list = list("".join(sample(alphabet, len(alphabet))))
-    return cipher_key_list
-
-cipher_dict = dict(zip(alphabet, create_cipher_key_list(alphabet)))
-
-def remove_punctuation_marks(phrase):
-    phrase_list = list(phrase)
-    punctuation_dict = {"!": "", ",": "", "?": "", "/": "", ".": ""}
-
-    for i in range(len(phrase_list)):
-        for k, v in punctuation_dict.items():
-            if phrase_list[i] == k:
-                phrase_list[i] == v
-
-    return phrase_list
-
-filtered_phrase_list = remove_punctuation_marks(phrase)
-
-def create_cipher_phrase(phrase_list, cipher_dict):
-    ciphered_phrase = []
-
-    for letter in phrase_list:
-        if letter.lower() in cipher_dict.keys():
-            ciphered_phrase.append(cipher_dict.get(letter.lower()))
-        else:
-            ciphered_phrase.append(" ")
-    return ciphered_phrase
-
-def changed_dict(ciphered_char, replace_ciphered_char, cipher_dict):
-    for k, v in cipher_dict.items():
-        if v == ciphered_char:
-            if k != v:
-                cipher_dict[k] = replace_ciphered_char
-    return cipher_dict
-
-def update_cipher(phrase_list, cipher_dict):
-    new_ciphered_phrase = []
-    for letter in phrase_list:
-        if letter == " ":
-            new_ciphered_phrase.append(" ")
-        else:
-            for k, v in cipher_dict.items():
-                if letter.lower() == k:
-                    new_ciphered_phrase.append(v)
-                    continue
-    return new_ciphered_phrase
-
-ciphered_phrase = create_cipher_phrase(filtered_phrase_list, cipher_dict)
+phrase_alphabet = ciph_function.get_alphabet_of_phrase(ciph_function.remove_punctuation_marks(phrase))
+cipher_dict = dict(zip(phrase_alphabet, ciph_function.create_cipher_key_list(alphabet, phrase_alphabet)))
+filtered_phrase_list = ciph_function.remove_punctuation_marks(phrase)
+ciphered_phrase = ciph_function.create_cipher_phrase(filtered_phrase_list, cipher_dict)
 count = 0
 modified_ciphered_phrase = []
 modified_dict = {}
@@ -82,13 +36,14 @@ while(True):
         repl_ciph_char = True
 
     if ciph_char is True and repl_ciph_char is True:
-        modified_dict = changed_dict(ciphered_char, replace_ciphered_char, cipher_dict)
-        modified_ciphered_phrase = update_cipher(filtered_phrase_list, modified_dict)
+        modified_dict = ciph_function.changed_dict(ciphered_char, replace_ciphered_char, cipher_dict)
+        modified_ciphered_phrase = ciph_function.update_cipher(filtered_phrase_list, modified_dict)
 
         ciphered_phrase_str = "".join(map(str, modified_ciphered_phrase))
         print(ciphered_phrase_str)
+        # print(modified_dict.values())
 
-    if modified_dict.values() == alphabet:
-        break
+    if list(modified_dict.values()) == phrase_alphabet:
         print("Phrase deciphered!")
         print(phrase)
+        break

@@ -1,15 +1,32 @@
-from random import sample
+from random import sample, shuffle
 
-phrase = "Trust in the Lord with all your heart and lean not on your own understanding, in all your ways submit to him"
-phrase_list = list(phrase)
-alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-            "v", "w", "x", "y", "z"]
+def create_cipher_key_list(alphabet, phrase_alphabet):
+    shuffle(alphabet)
+    cipher_key_list = []
+    for char in range(len(phrase_alphabet)):
+        cipher_key_list.append(alphabet[char])
 
-def create_cipher_key_list(alphabet):
-    cipher_key_list = list("".join(sample(alphabet, len(alphabet))))
     return cipher_key_list
 
-cipher_dict = dict(zip(alphabet, create_cipher_key_list(alphabet)))
+def remove_punctuation_marks(phrase):
+    phrase_list = list(phrase)
+    new_phrase_list = []
+    punctuation_list = ('!', ',', '?', '/', '.', ' ')
+
+    for char in phrase_list:
+        if char not in punctuation_list:
+            new_phrase_list.append(char.lower())
+
+    return new_phrase_list
+
+def get_alphabet_of_phrase(func):
+    """
+    Pass list of phrase after punctuation removed methode
+    """
+    set_phrase_alphabet = list(set(func))
+    set_phrase_alphabet.sort()
+
+    return set_phrase_alphabet
 
 def create_cipher_phrase(phrase_list, cipher_dict):
     ciphered_phrase = []
@@ -26,9 +43,17 @@ def changed_dict(ciphered_char, replace_ciphered_char, cipher_dict):
         if v == ciphered_char:
             if k != v:
                 cipher_dict[k] = replace_ciphered_char
-        else:
-            print("Incorrect Value")
-            continue
     return cipher_dict
 
-print(create_cipher_phrase(phrase_list))
+def update_cipher(phrase_list, cipher_dict):
+    new_ciphered_phrase = []
+    for letter in phrase_list:
+        if letter == " ":
+            new_ciphered_phrase.append(" ")
+        else:
+            for k, v in cipher_dict.items():
+                if letter.lower() == k:
+                    new_ciphered_phrase.append(v)
+                    continue
+    return new_ciphered_phrase
+
