@@ -1,5 +1,6 @@
 import cipher_functions as ciph_function
-phrase = "Trust"
+import api
+phrase = api.get_quote(type="q")
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
             "v", "w", "x", "y", "z", "*", "/", ",", "+", "&", "^"]
 
@@ -45,5 +46,6 @@ while(True):
 
     if list(modified_dict.values()) == phrase_alphabet:
         print("Phrase deciphered!")
-        print(phrase)
+        auther = api.get_quote(type="a")
+        print(f"{phrase} - {auther}")
         break

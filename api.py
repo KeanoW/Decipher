@@ -1,19 +1,20 @@
 import requests
 import jsonpickle
 
-def get_quote():
+def get_quote(type):
     response = jsonpickle.decode(requests.get("https://zenquotes.io/api/quotes/mode=random").text)
-    quote = {}
     info = response[1]
     auther = info['a']
     quote = info['q']
-    quote[auther] = quote
+    if type == "a":
+        return auther
 
-    return quote
+    elif type == "q":
+        return quote
     # for i in range(len(response)):
     #     info = response[i]
     #     auther = info['a']
     #     quote = info['q']
     #     quotes[auther] = quote
 
-
+print(get_quote(type="q"))
