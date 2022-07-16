@@ -39,6 +39,8 @@ def create_cipher_phrase(phrase_list, cipher_dict):
     return ciphered_phrase
 
 def changed_dict(ciphered_char, replace_ciphered_char, cipher_dict):
+    #create a list to store values where key not equal to value to make sure the value entered doesn't get
+    #used for already assigned values
     for k, v in cipher_dict.items():
         if v == ciphered_char:
             if k != v:
