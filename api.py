@@ -1,20 +1,29 @@
 import requests
 import jsonpickle
+import time
 
 def get_quote(type):
     response = jsonpickle.decode(requests.get("https://zenquotes.io/api/quotes/mode=random").text)
     info = response[1]
     auther = info['a']
     quote = info['q']
+    count = 0
 
-    with open("Quotes.txt", "w") as file:
-        for i in range(len(response)):
-            info = response[i]
-            auther = info['a']
-            quote = info['q'].strip()
-
-            text = f"\n{quote} * {auther}"
-            file.write(text)
+    # while (count < 5):
+    #     time.sleep(7)
+    #     response = jsonpickle.decode(requests.get("https://zenquotes.io/api/quotes/mode=random").text)
+    #     with open("Quotes.txt", "w") as file:
+    #
+    #         for i in range(len(response)):
+    #             info = response[i]
+    #             auther = info['a']
+    #             quote = info['q'].strip()
+    #
+    #             text = f"\n{quote} * {auther}"
+    #             file.write(text)
+    #
+    #     count += 1
+    #     print(count)
 
     if type == "a":
         return auther
@@ -52,3 +61,4 @@ def get_qoutes_from_file(filename):
         # return file_authers_quotes
 
 # print(get_qoutes_from_file("Quotes.txt"))
+# get_quote()

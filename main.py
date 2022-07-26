@@ -1,17 +1,14 @@
 import cipher_functions as ciph_function
 import api
-# phrase = api.get_quote(type="q")
-dict_quotes_from_file = api.get_qoutes_from_file("Quotes.txt")
-auther = "Seneca"
-phrase = dict_quotes_from_file[auther]
-print(phrase)
+phrase = api.get_quote(type="q")
+
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
             "v", "w", "x", "y", "z", "*", "/", ",", "+", "&", "^", "'", "(", ")", "=", ";", "{", "}", "[", "]", "?",
-            "=", "_", ">", "<", ":", "-", "!", "#", "@", "%"]
+            "=", "_", ">", "<", ":", "-", "!", "#", "@", "%", " "]
 
 phrase_alphabet = ciph_function.get_alphabet_of_phrase(ciph_function.remove_punctuation_marks(phrase)) +  ciph_function.get_specail_chars(phrase)
 cipher_dict = dict(zip(phrase_alphabet, ciph_function.create_cipher_key_list(alphabet, phrase_alphabet)))
-print(cipher_dict)
+# print(cipher_dict)
 filtered_phrase_list = ciph_function.remove_punctuation_marks(phrase)
 ciphered_phrase = ciph_function.create_cipher_phrase(filtered_phrase_list, cipher_dict)
 count = 0
@@ -48,10 +45,9 @@ while(True):
 
         ciphered_phrase_str = "".join(map(str, modified_ciphered_phrase))
         print(ciphered_phrase_str)
-        # print(modified_dict)
 
     if list(modified_dict.values()) == phrase_alphabet:
         print("Phrase deciphered!")
-        # auther = api.get_quote(type="a")
+        auther = api.get_quote(type="a")
         print(f"{phrase} - {auther}")
         break

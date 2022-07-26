@@ -8,9 +8,11 @@ def create_cipher_key_list(alphabet, phrase_alphabet):
             alphabet_removd_phrase_alph_list.append(letter)
 
     cipher_key_list = alphabet_removd_phrase_alph_list[:len(phrase_alphabet)]
+
     return cipher_key_list
 
 def remove_punctuation_marks(phrase):
+    phrase = phrase.lower()
     phrase_list = list(phrase)
     new_phrase_list = []
     punctuation_list = ('!', ',', '?', '/', '.', ' ')
@@ -67,16 +69,16 @@ def create_cipher_phrase(phrase_list, cipher_dict):
 def changed_dict(ciphered_char, replace_ciphered_char, cipher_dict):
     for k, v in cipher_dict.items():
         if v == ciphered_char:
-            if k != v:
-                if replace_ciphered_char in list(cipher_dict.values()):
-                    keys = list(cipher_dict.keys())
-                    values = list(cipher_dict.values())
+            # if k != v:
+            if replace_ciphered_char in list(cipher_dict.values()):
+                keys = list(cipher_dict.keys())
+                values = list(cipher_dict.values())
 
-                    value_index = values.index(replace_ciphered_char)
-                    key = keys[value_index]
-                    cipher_dict[key] = ciphered_char
-                    # cipher_dict[k] = replace_ciphered_char
-                cipher_dict[k] = replace_ciphered_char
+                value_index = values.index(replace_ciphered_char)
+                key = keys[value_index]
+                cipher_dict[key] = ciphered_char
+                # cipher_dict[k] = replace_ciphered_char
+            cipher_dict[k] = replace_ciphered_char
     return cipher_dict
 
 def update_cipher(phrase_list, cipher_dict):
