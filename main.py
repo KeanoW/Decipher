@@ -1,14 +1,14 @@
 import cipher_functions as ciph_function
 import api
+import time
 phrase = api.get_quote(type="q")
-
+print(phrase)
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
             "v", "w", "x", "y", "z", "*", "/", ",", "+", "&", "^", "'", "(", ")", "=", ";", "{", "}", "[", "]", "?",
             "=", "_", ">", "<", ":", "-", "!", "#", "@", "%", " "]
 
-phrase_alphabet = ciph_function.get_alphabet_of_phrase(ciph_function.remove_punctuation_marks(phrase)) +  ciph_function.get_specail_chars(phrase)
+phrase_alphabet = ciph_function.get_alphabet_of_phrase(ciph_function.remove_punctuation_marks(phrase))
 cipher_dict = dict(zip(phrase_alphabet, ciph_function.create_cipher_key_list(alphabet, phrase_alphabet)))
-# print(cipher_dict)
 filtered_phrase_list = ciph_function.remove_punctuation_marks(phrase)
 ciphered_phrase = ciph_function.create_cipher_phrase(filtered_phrase_list, cipher_dict)
 count = 0
@@ -16,7 +16,7 @@ modified_ciphered_phrase = []
 modified_dict = {}
 ciph_char = False
 repl_ciph_char = False
-
+start_time = time.time()
 while(True):
     if count < 1:
         ciphered_phrase_str = "".join(map(str, ciphered_phrase))
@@ -51,3 +51,5 @@ while(True):
         auther = api.get_quote(type="a")
         print(f"{phrase} - {auther}")
         break
+        end_time = time.time()
+        print(end_time)

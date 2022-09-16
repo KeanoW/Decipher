@@ -48,17 +48,5 @@ def get_qoutes_from_file(filename):
         dict_authors_quotes = dict(zip(authers, quotes))
         return dict_authors_quotes
 
-        # file_authers_quotes = {}
-        # for i in range(len(line_contents)):
-        #     line = line_contents[i]
-        #     print(line)
-        #     file_quote = line[0]
-        #     print("Quote", file_quote)
-        #     file_auther = line[1].strip("\n")
-        #     print("Auther", file_auther)
-        #     file_authers_quotes[file_auther] = file_quote
-
-        # return file_authers_quotes
-
 # print(get_qoutes_from_file("Quotes.txt"))
 # get_quote()
